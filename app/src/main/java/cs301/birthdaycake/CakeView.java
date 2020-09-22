@@ -17,6 +17,10 @@ public class CakeView extends SurfaceView {
     Paint innerFlamePaint = new Paint();
     Paint wickPaint = new Paint();
 
+    //for the balloon
+    Paint balloon = new Paint();
+    Paint string = new Paint();
+
     /* These constants define the dimensions of the cake.  While defining constants for things
         like this is good practice, we could be calculating these better by detecting
         and adapting to different tablets' screen sizes and resolutions.  I've deliberately
@@ -33,6 +37,13 @@ public class CakeView extends SurfaceView {
     public static final float wickWidth = 6.0f;
     public static final float outerFlameRadius = 30.0f;
     public static final float innerFlameRadius = 15.0f;
+
+
+    //For the balloon
+    public static final float balloonWidth = 100.0f;
+    public static final float balloonHeight = 150.0f;
+    public static final float stringWidth = 20.0f;
+    public static final float stringHeight = 80.0f;
 
     // Instance variables
     private CakeModel cakeMod = new CakeModel();
@@ -66,6 +77,11 @@ public class CakeView extends SurfaceView {
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
 
+        balloon.setColor(Color.BLUE);
+        balloon.setStyle(Paint.Style.FILL);
+        string.setColor(Color.BLACK);
+        string.setStyle(Paint.Style.FILL);
+
         setBackgroundColor(Color.WHITE);  //better than black default
 
     }
@@ -96,6 +112,14 @@ public class CakeView extends SurfaceView {
         }
     }
 
+    public void drawBalloon(Canvas canvas, float bottom, float left)
+    {
+        canvas.drawOval(left- balloonWidth/2, bottom - balloonHeight/2, left + balloonWidth/2, bottom + balloonHeight/2, balloon);
+        canvas.drawRect((left + left)/2, bottom + balloonHeight/2 + stringHeight,
+                (left + left)/2 + stringWidth, bottom + balloonHeight/2, string);
+
+    }
+
     /**
      * onDraw is like "paint" in a regular Java program.  While a Canvas is
      * conceptually similar to a Graphics in javax.swing, the implementation has
@@ -106,6 +130,9 @@ public class CakeView extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas)
     {
+
+
+
         //top and bottom are used to keep a running tally as we progress down the cake layers
         float top = cakeTop;
         float bottom = cakeTop + frostHeight;
@@ -157,6 +184,10 @@ public class CakeView extends SurfaceView {
                 drawCandle(canvas, cakeLeft + cakeWidth / 1 - candleWidth / 1, cakeTop);
                 drawCandle(canvas, cakeLeft + cakeWidth / 6 - candleWidth / 6, cakeTop);
                 break;
+        }
+
+        if(cakeMod.hasBalloon) {
+            drawBalloon(canvas, cakeMod.bottom, cakeMod.left);
         }
 
     }//onDraw
