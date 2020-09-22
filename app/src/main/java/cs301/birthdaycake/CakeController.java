@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 
-public class CakeController implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener, SurfaceView.OnTouchListener {
+public class CakeController implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener, SurfaceView.OnTouchListener, View.OnTouchListener {
+
 
     private CakeView cakeView1;
     private CakeModel cakeModel1;
@@ -54,6 +55,11 @@ public class CakeController implements View.OnClickListener, CompoundButton.OnCh
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        cakeModel1.xLocation = (int) motionEvent.getX();
+        cakeModel1.yLocation = (int) motionEvent.getY();
+        cakeView1.invalidate();
+
 
         Log.d("view", "On Touch");
 

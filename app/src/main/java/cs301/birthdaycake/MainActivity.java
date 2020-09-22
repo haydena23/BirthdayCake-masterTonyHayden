@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.util.Log;
 import android.widget.Button;
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         //touch events
         SurfaceView surf = findViewById(R.id.cakeview);
         surf.setOnTouchListener(cc1);
+
+        View touch = findViewById(R.id.cakeview);
+        touch.setOnTouchListener(cc1);
 
     }
 
